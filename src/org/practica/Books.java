@@ -1,4 +1,4 @@
-package practicaJava;
+package org.practica;
 
 public class Books extends Products {
 
@@ -13,6 +13,7 @@ public class Books extends Products {
 		return isbn;
 	}
 
+	@Override
 	public String getAttributes() {
 		return super.getAttributes() + "\t ISBN: " + this.isbn;
 	}

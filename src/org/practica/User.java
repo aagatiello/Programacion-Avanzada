@@ -1,4 +1,6 @@
-package practicaJava;
+package org.practica;
+
+import java.util.ArrayList;
 
 public class User {
 
@@ -6,6 +8,8 @@ public class User {
 	String surname;
 	String id;
 	String password;
+
+	static User actualUser;
 
 	public User(String name, String surname, String id, String password) {
 		this.name = name;
@@ -45,8 +49,20 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getAttributes() {
 		return "Name: " + this.name + "\t Surname: " + this.surname + "\t ID: " + this.id;
+	}
+
+	public static boolean authentification(String id, String password, ArrayList<User> Ulist) {
+		boolean login = false;
+
+		for(int i = 0; i < Ulist.size(); i++) {
+			if(id.equals(Ulist.get(i).getId()) && password.equals(Ulist.get(i).getPassword())) {
+				login = true;
+				actualUser = Ulist.get(i);
+			}
+		}
+		return login;
 	}
 }

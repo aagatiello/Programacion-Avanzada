@@ -1,6 +1,8 @@
-package practicaJava;
+package org.practica;
 
-public class Products {
+import java.util.ArrayList;
+
+public class Products implements InterfaceProducts {
 
 	private String title;
 	private String author;
@@ -46,7 +48,11 @@ public class Products {
 		this.availables = availables;
 	}
 
-	public Boolean isAvailable() {
+	public String getAttributes() {
+		return "Title: " + this.title + "\t Author/director: " + this.author + "\t Examples: " + this.examples + "\t Availables: " + this.availables; 
+	}
+
+	public boolean isAvailable() {
 		boolean available = true;
 		if (availables == 0) {
 			available = false;
@@ -56,7 +62,7 @@ public class Products {
 		return available;
 	}
 
-	public Boolean isReturned() {
+	public boolean isReturned() {
 		boolean returned = true;
 		if (availables < examples) {
 			availables++;
@@ -66,9 +72,12 @@ public class Products {
 		return returned;
 	} 
 
-	public String getAttributes() {
-		return "Title: " + this.title + "\t Author/director: " + this.author + "\t Examples: " + this.examples + "\t Availables: " + this.availables; 
+	public static boolean search(String title, ArrayList<Products> Plist) {
+		boolean found = false;
+		for(int i = 0; i < Plist.size(); i++) {
+			if (title.equals(Plist.get(i).getTitle())) 
+				found = true;
+		}
+		return found;
 	}
-
-
 }
