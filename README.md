@@ -1,14 +1,16 @@
 # INTRODUCTION
-This is my repository where I will publish my Advanced Programming Techniques (Java) Practices.
-At the moment the program is very simple, it works like an online library.
+This is my repository where I will publish my Advanced Programming Techniques (Java) Practices. It works like an online product library.
 
 # CODE
-The code consists of three classes: User, Book and Main. It also contains a Testbook.
+The code consists of:
+- Classes: Main, Menus, Products (Movies and Books), User, MyException and SimpleSearch. It also has an Internationalization class to change the language (English or Spanish)
+- Tests: BooksTest, MoviesTest and UserTest.
+- Interfaces: InterfaceProducts and Search.
 
 # MAIN
-If you run the program, a small menu will appear on the console with four options, two related to the user and two related to the books. By choosing their respective numbers, you can create or delete a user, and borrow or return a book.
+If you run the program, a menu will appear on the console with five options: Log in, create, delete and shows users, and change the language. If you log in propertly, another menu will appear, this time with the products options, where you can search, borrow or return them.  
 
-![Menu](img/menu.png)
+Why sometimes we have to stop the development? This is to improve the interface or refactoring the code, due to make a simpler program for the user, improving it both visually and in time of execution, to do it more quickly.
 
 That's all for now!
 
