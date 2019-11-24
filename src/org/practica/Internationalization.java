@@ -7,10 +7,13 @@ import java.util.Scanner;
 public class Internationalization {
 
 	static ResourceBundle introLabels;
-
+	static Locale currentLocale;
+	
+	public static Locale getCurrentLocale() {
+		return currentLocale;
+	}
+	
 	static Locale selectLanguage(){
-
-		Locale currentLocale;
 
 		System.out.println("1. Spanish");
 		System.out.println("2. English");
@@ -22,9 +25,11 @@ public class Internationalization {
 		if(select == 1) {
 			currentLocale = new Locale("es", "ES");
 			introLabels = ResourceBundle.getBundle("MessagesBundle_es_ES", currentLocale);
-		} else {
+		} else if(select == 2) {
 			currentLocale = new Locale("en", "US");
 			introLabels = ResourceBundle.getBundle("MessagesBundle_en_US", currentLocale);
+		} else {
+			System.out.println("Invalid Number");
 		}
 		return currentLocale;
 	}

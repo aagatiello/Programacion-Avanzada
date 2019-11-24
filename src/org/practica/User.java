@@ -3,7 +3,7 @@ package org.practica;
 import java.util.ArrayList;
 
 public class User {
-
+	
 	String name;
 	String surname;
 	String id;
@@ -65,4 +65,5 @@ public class User {
 		}
 		return login;
 	}
+	
 }
