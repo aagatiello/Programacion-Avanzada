@@ -6,14 +6,18 @@ import java.util.Scanner;
 
 public class Internationalization {
 
-	static ResourceBundle introLabels;
-	static Locale currentLocale;
-	
+	private static Locale currentLocale = new Locale("es", "ES");
+	private static ResourceBundle introLabels;
+
 	public static Locale getCurrentLocale() {
 		return currentLocale;
 	}
-	
-	static Locale selectLanguage(){
+
+	public static ResourceBundle getIntroLabels() {
+		return introLabels;
+	}
+
+	public static Locale selectLanguage(){
 
 		System.out.println("1. Spanish");
 		System.out.println("2. English");
@@ -24,13 +28,18 @@ public class Internationalization {
 
 		if(select == 1) {
 			currentLocale = new Locale("es", "ES");
-			introLabels = ResourceBundle.getBundle("MessagesBundle_es_ES", currentLocale);
+			setIntroLabels(ResourceBundle.getBundle("MessagesBundle_es_ES", currentLocale));
 		} else if(select == 2) {
 			currentLocale = new Locale("en", "US");
-			introLabels = ResourceBundle.getBundle("MessagesBundle_en_US", currentLocale);
+			setIntroLabels(ResourceBundle.getBundle("MessagesBundle_en_US", currentLocale));
 		} else {
 			System.out.println("Invalid Number");
 		}
 		return currentLocale;
 	}
+
+	public static void setIntroLabels(ResourceBundle introLabels) {
+		Internationalization.introLabels = introLabels;
+	}
+
 }

@@ -1,13 +1,17 @@
 package org.practica;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+import org.practica.User.UserBuilder;
 
 class UserTest {
 
 	@Test
-	void test() {
-		User myUser = new User("Agustina", "Agatiello", "12345A", "hola");
+	final void test() {
+		UserBuilder myUserBuilder = new UserBuilder("Agustina", "Agatiello", "12345A", "hola");
+		User myUser = new User(myUserBuilder);
 		assertEquals("hola", myUser.getPassword());
 	}
+	
 }

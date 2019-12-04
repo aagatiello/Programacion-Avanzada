@@ -1,7 +1,5 @@
 package org.practica;
 
-import java.util.ArrayList;
-
 public interface InterfaceProducts {
 
 	public String getTitle();
@@ -16,13 +14,9 @@ public interface InterfaceProducts {
 	public int getAvailables();
 	public void setAvailables(int availables);
 
-	public String getAttributes();
+	public abstract String getAttributes();
 
 	public boolean isAvailable();
-
 	public boolean isReturned();
-
-	public static boolean search(String title, ArrayList<Products> Plist) {
-		return false;
-	}
+	
 }

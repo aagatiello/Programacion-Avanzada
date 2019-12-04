@@ -2,56 +2,42 @@ package org.practica;
 
 import java.util.ArrayList;
 
-public class User {
-	
-	String name;
-	String surname;
-	String id;
-	String password;
+public class User implements InterfaceUser {
+
+	// Creational pattern applied (Builder)
+
+	public static class UserBuilder {
+
+		private String id;
+		private String name;
+		private String password;
+		private String surname;
+
+		public UserBuilder(String name, String surname, String id, String password) {
+			this.name = name;
+			this.surname = surname;
+			this.id = id;
+			this.password = password;
+		}
+
+		public User build() {
+			User user = new User(this);
+			return new User(this);
+		}
+	}
 
 	static User actualUser;
-
-	public User(String name, String surname, String id, String password) {
-		this.name = name;
-		this.surname = surname;
-		this.id = id;
-		this.password = password;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getAttributes() {
-		return "Name: " + this.name + "\t Surname: " + this.surname + "\t ID: " + this.id;
+	
+	private String id;
+	private String name;
+	private String password;
+	private String surname;
+	
+	public User(UserBuilder user) {
+		this.name = user.name;
+		this.surname = user.surname;
+		this.id = user.id;
+		this.password = user.password;
 	}
 
 	public static boolean authentification(String id, String password, ArrayList<User> Ulist) {
@@ -65,5 +51,41 @@ public class User {
 		}
 		return login;
 	}
-	
+
+	public String getAttributes() {
+		return "Name: " + this.name + "\t Surname: " + this.surname + "\t ID: " + this.id;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
 }

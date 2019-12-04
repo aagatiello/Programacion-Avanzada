@@ -2,7 +2,7 @@ package org.practica;
 
 public class Movies extends Products {
 
-	int yearReleased;
+	private int yearReleased;
 
 	protected Movies(String title, String director, int yearReleased, int examples, int availables) {
 		super(title, director, examples, availables);
@@ -11,7 +11,15 @@ public class Movies extends Products {
 
 	@Override
 	public String getAttributes() {
-		return super.getAttributes() + "\t Year released: " + this.yearReleased;
+		return "Title: " + super.getTitle() + "\t Author/director: " + super.getAuthor() + "\t Examples: " + super.getExamples() + "\t Availables: " + super.getAvailables() + "\t Year released: " + this.yearReleased;
+	}
+
+	public int getYearReleased() {
+		return yearReleased;
+	}
+
+	public void setYearReleased(int yearReleased) {
+		this.yearReleased = yearReleased;
 	}
 
 }

@@ -1,48 +1,56 @@
 package org.practica;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
-public class ShoppingCart<T> implements Iterable<T> {
+public class ShoppingCart {
 
-	private ArrayList<T> cart = new ArrayList<>();
-	int max = 10;
+	// Creational pattern applied (Singleton)
 
-	public ShoppingCart(int max) {
-		super();
-		this.max = max;
-	}
+	private static ArrayList<String> cart;
+	private static ShoppingCart instance = null;
+	private static int max;
 
-	public void addToCart(T product) {
+	public static void addToCart(String product) {
 		if (cart.size() <= max) {
 			cart.add(product);
 		} else {
-			throw new RuntimeException("Limit reached.");
+			System.out.println("Limit reached.");
 		}
 	}
 
-	public Iterator<T> iterator() {
-		return cart.iterator();
+	public static synchronized ShoppingCart getInstancia() {
+		if (instance == null)
+			instance = new ShoppingCart(20);
+		return instance;
 	}
 
-	@SuppressWarnings("hiding")
-	private <T extends Comparable<T>>void bubbleSort(T[] inputArray) {
-		T temp;
-		boolean swapped = true;
-		for(int j = 1; j < inputArray.length & swapped; j++) {
-			swapped = false;
-			for(int i = 0; i < inputArray.length - j; i++) {
-				if(inputArray[i].compareTo(inputArray[i+1]) > 0) {
-					temp = inputArray[i];
-					inputArray[i] = inputArray[i+1];
-					inputArray[i+1] = temp;
-					swapped = true;
+	public ShoppingCart(int max) {
+		ShoppingCart.cart = new ArrayList<>();
+		ShoppingCart.max = max;
+	}
+
+	public void bubbleSort(ArrayList<String> list) {
+		String temp;
+		boolean sorted = false;
+
+		while (!sorted) {
+			sorted = true;
+			for (int i = 0; i < list.size()-1; i++) {
+				if (list.get(i).compareTo(list.get(i + 1)) > 0) {
+					temp = list.get(i);
+					list.set(i, list.get(i + 1));
+					list.set(i + 1, temp);
+					sorted = false;
 				}
 			}
 		}
-		for(T i: inputArray) {
-			System.out.print(" " + i);
-		}
+	}
+
+	public String getProducts() {
+		String products = "";
+		for (String p : ShoppingCart.cart)
+			products = products + p + "\n";
+		return products;
 	}
 
 }

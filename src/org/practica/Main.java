@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.util.Locale;
+
+import org.practica.User.UserBuilder;
 
 public class Main {
 
-	static ResourceBundle mybundle = ResourceBundle.getBundle("MessagesBundle");	
+	static ResourceBundle mybundle = ResourceBundle.getBundle("MessagesBundle");
 
 	public static void main(String[] args) {
 
@@ -54,13 +55,13 @@ public class Main {
 
 		boolean exit = false;
 		int option; 
-		while (!exit) {
+		while (!exit) {	
 			try {
 				Menus.menu1();
 				System.out.print("Option: ");
 				option = sc.nextInt();
-
 				switch (option) {
+
 				case 1: 
 					System.out.println("---" + mybundle.getString("option1") + "---");
 					System.out.print(mybundle.getString("id"));
@@ -68,6 +69,9 @@ public class Main {
 					System.out.print(mybundle.getString("psw"));
 					String pw = data.nextLine();
 					if (User.authentification(id, pw, Ulist)){
+
+						new ShoppingCart(20);
+						BankAccount.deposit(20);
 						boolean exit2 = false;
 						int option2 = 0;
 
@@ -76,65 +80,63 @@ public class Main {
 								Menus.menu2();
 								System.out.print("Option: ");
 								option2 = sc.nextInt();
-
 								switch (option2) {
+
 								case 1:
 									System.out.println("---" + mybundle.getString("option7") + "---");
-									System.out.println("Select a product:     1. Books.     2. Movies");
+									System.out.println(mybundle.getString("select"));
 									int a = data.nextInt();
 									if(a == 1) {
 										for(int i = 0; i < Blist.size(); i++) 
 											System.out.println(i + " - " + Blist.get(i).getAttributes());
-										System.out.print("Write the number: ");
+										System.out.print(mybundle.getString("number"));
 										int b = data.nextInt();
-										if (Blist.get(b).isAvailable()) System.out.println(Blist.get(b).getTitle() + " has been borrowed. It must be returned within a maximum of 14 days.");
-										else System.out.println("There are no copies of " + Blist.get(b).getTitle() + " available.");
+										if (Blist.get(b).isAvailable() && BankAccount.getBalance() > 0) {
+											System.out.println(Blist.get(b).getTitle() + mybundle.getString("borrowed"));
+											String product= String.valueOf(b);
+											ShoppingCart.addToCart(product);
+											BankAccount.withdraw(5.5);
+										}
+										else System.out.println(mybundle.getString("available") + Blist.get(b).getTitle());
 									} else if (a == 2) {
 										for(int i = 0; i < Mlist.size(); i++) 
 											System.out.println(i + " - " + Mlist.get(i).getAttributes());
-										System.out.print("Write the number: ");
+										System.out.print(mybundle.getString("number"));
 										int b = data.nextInt();
-										if (Mlist.get(b).isAvailable()) System.out.println(Mlist.get(b).getTitle() + " has been borrowed. It must be returned within a maximum of 14 days.");
-										else System.out.println("There are no copies of " + Mlist.get(b).getTitle() + " available.");
+										if (Mlist.get(b).isAvailable() && BankAccount.getBalance() > 0) {
+											System.out.println(Mlist.get(b).getTitle() + mybundle.getString("borrowed"));
+											String product= String.valueOf(b);
+											ShoppingCart.addToCart(product);
+											BankAccount.withdraw(5.5);
+										}
+										else System.out.println(mybundle.getString("available") + Mlist.get(b).getTitle());
 									} else System.out.println("ERROR.");
 									break;
 
 								case 2:
 									System.out.println("---" + mybundle.getString("option8") + "---");
-									System.out.println("Select a product:     1. Books.     2. Movies");
+									System.out.println(mybundle.getString("select"));
 									int c = data.nextInt();
 									if(c == 1) {
 										for(int i = 0; i < Blist.size(); i++) 
 											System.out.println(i + " - " + Blist.get(i).getAttributes());
-										System.out.print("Write the number: ");
+										System.out.print(mybundle.getString("number"));
 										int d = data.nextInt();
-										if (Blist.get(d).isReturned()) System.out.println(Blist.get(d).getTitle() +" has been returned. Thank you!");
-										else System.out.println("There are no copies of " + Blist.get(d).getTitle() + " borrowed.");
+										if (Blist.get(d).isReturned()) System.out.println(Blist.get(d).getTitle() + mybundle.getString("returned"));
+										else System.out.println(mybundle.getString("nocopies") + Blist.get(d).getTitle());
 									} else if (c == 2) {
 										for(int i = 0; i < Mlist.size(); i++) 
 											System.out.println(i + " - " + Mlist.get(i).getAttributes());
-										System.out.print("Write the number: ");
+										System.out.print(mybundle.getString("number"));
 										int d = data.nextInt();
-										if (Mlist.get(d).isReturned()) System.out.println(Mlist.get(d).getTitle() +" has been returned. Thank you!");
-										else System.out.println("There are no copies of " + Mlist.get(d).getTitle() + " borrowed.");
+										if (Mlist.get(d).isReturned()) System.out.println(Mlist.get(d).getTitle() + mybundle.getString("returned"));
+										else System.out.println(mybundle.getString("nocopies") + Mlist.get(d).getTitle());
 									} else System.out.println("ERROR.");
 									break;
 
 								case 3:
 									System.out.println("---" + mybundle.getString("option9") + "---");
-									System.out.println("Select a product:     1. Books.     2. Movies");
-									int e = data.nextInt();
-									if(e == 1) {
-										System.out.print("Write the title: ");
-										String f = data.next();
-										if (Products.search(f,Blist)) System.out.println("Found");
-										else System.out.println("Not found");
-									} else if (e == 2) {
-										System.out.print("Write the title: ");
-										String f = data.next();
-										if (Products.search(f,Mlist)) System.out.println("Found");
-										else System.out.println("Not found");
-									} else System.out.println("ERROR.");
+									BankAccount.deposit(10);
 									break;
 
 								case 4:
@@ -142,16 +144,15 @@ public class Main {
 									break;
 
 								default:
-									System.out.println("Invalid option");
+									System.out.println("Opcion invalida");
 									break;
 								}
 
 							} catch (InputMismatchException e) {
-								System.out.println("Invalid character.");
+								System.out.println("Caracter invalido");
 								sc.next();
 							}
 						}
-
 					} else {
 						System.out.println("ERROR.");
 					}
@@ -169,32 +170,41 @@ public class Main {
 					System.out.print(mybundle.getString("psw"));
 					String ps2 = data.nextLine();
 
-					User user = new User(nm2, sn2 , id2 , ps2);
+					UserBuilder userBuilder = new UserBuilder(nm2, sn2 , id2 , ps2);
+					User user = new User(userBuilder);
 					Ulist.add(user);
 					break;
 
 				case 3:
 					System.out.println("---" + mybundle.getString("option3") + "---");
-					for(int i = 0; i < Ulist.size(); i++) 
-						System.out.println(i + " - " + Ulist.get(i).getAttributes());
+					if(Ulist.isEmpty()) System.out.println(mybundle.getString("users"));
+					else for(int i = 0; i < Ulist.size(); i++) System.out.println(i + " - " + Ulist.get(i).getAttributes());
 					break;
 
 				case 4:
 					System.out.println("---" + mybundle.getString("option4") + "---");
-					System.out.print("Select a user to delete (write the number): ");
-					int z = data.nextInt();
-					Ulist.remove(z);
+					if(Ulist.isEmpty()) System.out.println(mybundle.getString("users"));
+					else {
+						for(int i = 0; i < Ulist.size(); i++) System.out.println(i + " - " + Ulist.get(i).getAttributes());
+						System.out.print(mybundle.getString("number"));
+						int z = data.nextInt();
+						if(z > Ulist.size()) System.out.println(mybundle.getString("users"));
+						else {
+							Ulist.remove(z);
+							System.out.println(mybundle.getString("deleted"));
+						}
+					}
 					break;
 
 				case 5:
 					System.out.println("---" + mybundle.getString("option5") + "---");
-					System.out.println("Current Locale: " + Locale.getDefault());	
+					System.out.println("Current Locale: " + Internationalization.getCurrentLocale());	
 					Internationalization.selectLanguage();
 					break;
 
 				case 6:
 					exit = true;
-					System.out.println("Bye bye!");
+					System.out.println(mybundle.getString("bye"));
 					break;
 
 				default:
@@ -208,4 +218,5 @@ public class Main {
 			}
 		}
 	}
+
 }
